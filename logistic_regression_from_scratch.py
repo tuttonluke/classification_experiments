@@ -27,7 +27,11 @@ class MyLogisticRegression:
         y : np.array
             Vector of label data.
         """
-        self.no_training_examples, self.no_features = X.shape
+        try:
+            self.no_training_examples, self.no_features = X.shape
+        except ValueError:
+            self.no_training_examples = len(X)
+            self.no_features = 1
         # initialise weights and bias
         self.W = np.zeros(self.no_features)
         self.b = 0
