@@ -12,7 +12,7 @@ def min_max_norm(X):
 
     return scaled_X
 # %%
-class MyLogitsticRegression:
+class MyLogisticRegression:
     def __init__(self, learning_rate, n_epochs) -> None:
         self.learning_rate = learning_rate
         self.epochs = n_epochs
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     X_validation_scaled = min_max_norm(X_validation)
 
     # model training
-    model = MyLogitsticRegression(learning_rate=0.01, n_epochs=1000)
+    model = MyLogisticRegression(learning_rate=0.01, n_epochs=1000)
     model.fit(X_train_scaled, y_train)
 
     sklearn_model = LogisticRegression()
