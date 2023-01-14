@@ -76,6 +76,9 @@ class MyLogitsticRegression:
         return prediction_outcome
 # %% 
 if __name__ == "__main__":
+    # set random seed
+    np.random.seed(42)
+
     # load in data
     X, y = datasets.load_breast_cancer(return_X_y=True)
     
@@ -93,32 +96,34 @@ if __name__ == "__main__":
     model = MyLogitsticRegression(learning_rate=0.01, n_epochs=1000)
     model.fit(X_train_scaled, y_train)
 
+    sklearn_model = LogisticRegression()
+    sklearn_model.fit(X_train_scaled, y_train)
+
     # prdictions
     y_pred_test = model.predict(X_test_scaled)
     y_pred_val = model.predict(X_validation_scaled)
 
+    y_pred_test_sklearn = model.predict(X_test_scaled)
+    y_pred_val_sklearn = model.predict(X_validation_scaled)
+
     # measure performance    
     correctly_classified = 0    
-    correctly_classified1 = 0
-      
-    # counter    
+    correctly_classified_sklearn = 0
+         
     count = 0    
     for count in range( np.size( y_pred_test ) ) :  
         
         if y_test[count] == y_pred_test[count] :            
-            correctly_classified = correctly_classified + 1
+            correctly_classified += 1
+        
+        if y_test[count] == y_pred_test_sklearn[count] :            
+            correctly_classified_sklearn += 1
               
-        count = count + 1
+        count += 1
           
-    print( "Accuracy on test set by our model: ", ( 
-      correctly_classified / count ) * 100 )
-
-
-
-    # # TEST WITH SKLEARN
-    # np.random.seed(42)
-    # log_model = LogisticRegression(max_iter=10000)
-    # log_model.fit(X_train, y_train)
-    # y_pred_val = log_model.predict(X_validation)
+    print( "Accuracy on test set by our model: ", round(( 
+      correctly_classified / count ) * 100 , 2))
     
+    print( "Accuracy on test set by sklearn model: ", round(( 
+      correctly_classified_sklearn / count ) * 100, 2 ))
 # %%
