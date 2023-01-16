@@ -13,9 +13,12 @@ def min_max_norm(X):
     return scaled_X
 # %%
 class MyLogisticRegression:
-    def __init__(self, learning_rate, n_epochs) -> None:
+    def __init__(self, learning_rate, n_epochs, n_features) -> None:
         self.learning_rate = learning_rate
         self.epochs = n_epochs
+        self.n_featuers = n_features
+        self.W = np.zeros(self.n_featuers)
+        self.b = 0
 
     def fit(self, X, y):
         """Function for training the model.
@@ -27,14 +30,7 @@ class MyLogisticRegression:
         y : np.array
             Vector of label data.
         """
-        try:
-            self.no_training_examples, self.no_features = X.shape
-        except ValueError:
-            self.no_training_examples = len(X)
-            self.no_features = 1
-        # initialise weights and bias
-        self.W = np.zeros(self.no_features)
-        self.b = 0
+        self.no_training_examples = X.shape[0]
         self.X = X
         self.y = y
 
