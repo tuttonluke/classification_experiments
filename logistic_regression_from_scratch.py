@@ -20,7 +20,7 @@ class MyLogisticRegression:
         self.W = np.zeros(self.n_featuers)
         self.b = 0
 
-    def fit(self, X, y):
+    def fit(self, X, y, epsilon=0):
         """Function for training the model.
 
         Parameters
@@ -32,7 +32,7 @@ class MyLogisticRegression:
         """
         self.no_training_examples = X.shape[0]
         self.X = X
-        self.y = y
+        self.y = np.absolute(y-epsilon)
 
         # gradient descent optimisation
         for i in range(self.epochs):
@@ -93,8 +93,8 @@ if __name__ == "__main__":
     X_validation_scaled = min_max_norm(X_validation)
 
     # model training
-    model = MyLogisticRegression(learning_rate=0.01, n_epochs=1000)
-    model.fit(X_train_scaled, y_train)
+    model = MyLogisticRegression(learning_rate=0.01, n_epochs=1000, n_features=30)
+    model.fit(X_train_scaled, y_train, epsilon=0.1)
 
     sklearn_model = LogisticRegression()
     sklearn_model.fit(X_train_scaled, y_train)
