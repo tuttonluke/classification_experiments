@@ -5,7 +5,7 @@ from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-# %%
+# %% code adapted from https://www.kaggle.com/code/lildatascientist/multiclass-classification-from-scratch
 class LogisticRegression:
     
     def __init__(self, lr=0.1, n_iters=10000):
