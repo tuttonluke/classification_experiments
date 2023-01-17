@@ -3,6 +3,7 @@ from logistic_regression_from_scratch import min_max_norm
 import numpy as np
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 # %%
 class LogisticRegression:
@@ -69,13 +70,19 @@ class MyMulticlassClassification:
 
         y_pred = [[label, model.predict(X)] for label, model in self.models]
 
-        # output = []
+        output = []
 
-        # for i in range(X.shape[0]):
-        #     max_label = None
-        #     max_prob = -10**5
-        #     for j in range(len(y_pred)):
-        #         prob = y_pred[j][1][i]
+        for i in range(X.shape[0]):
+            max_label = None
+            max_prob = -10**5
+            for j in range(len(y_pred)):
+                prob = y_pred[j][1][i]
+                if prob > max_prob:
+                    max_label = y_pred[j][0]
+                    max_prob = prob
+            output.append(max_label)
+        
+        return output
 
                     
 
@@ -100,5 +107,8 @@ if __name__ == "__main__":
     #print(X_train_scaled, "\n")
     model = MyMulticlassClassification()
     model.fit(X_train_scaled, y_train)
-    model.predict(X_test)
+    model.predict(X_test_scaled)
+
+    print(accuracy_score(y_test, model.predict(X_test_scaled)))
+
 # %%
