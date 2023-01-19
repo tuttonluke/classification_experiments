@@ -60,6 +60,8 @@ def gaussian_max_likelihood_estimation(X, mean, sigma):
 if __name__ == "__main__":
     np.random.seed(42)
 
+    # -------- UNSUPERVISED DATA ----------
+
     # load data and get basic statistics
     X, y = get_regression_data()
     X = X[:, 0]
@@ -85,4 +87,5 @@ if __name__ == "__main__":
 
     plt.plot(mean_values, objectives)
     plt.show()
+    
 # %%
